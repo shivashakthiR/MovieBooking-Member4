@@ -29,7 +29,8 @@ public class Main {
             System.out.println("4. Cancel Booking");
             System.out.println("5. Search Booking by ID");
             System.out.println("6. View Booking Summary");
-            System.out.println("7. Exit");
+            System.out.println("7. View Available Seats");
+            System.out.println("8. Exit");
             System.out.print("Enter your choice: ");
 
             choice = readInt();
@@ -61,6 +62,10 @@ public class Main {
                     break;
 
                 case 7:
+                    viewAvailableSeats();
+                    break;
+
+                case 8:
                     System.out.println("Thank you for using our system!");
                     break;
 
@@ -68,7 +73,7 @@ public class Main {
                     System.out.println("Invalid choice. Please try again.");
             }
 
-        } while (choice != 7);
+        } while (choice != 8);
     }
 
     // Add sample movies
@@ -185,6 +190,58 @@ public class Main {
                 showtime,
                 selectedSeats
         );
+    }
+
+    // View available seats without booking
+    private static void viewAvailableSeats() {
+
+        viewMovies();
+
+        System.out.print("\nSelect movie number: ");
+        int movieChoice = readInt();
+
+        if (movieChoice < 1 || movieChoice > movies.size()) {
+            System.out.println("Invalid movie selection.");
+            return;
+        }
+
+        Movie movie = movies.get(movieChoice - 1);
+
+        System.out.println("\n----- AVAILABLE SHOWTIMES -----");
+        System.out.println("1. 10:00 AM");
+        System.out.println("2. 2:00 PM");
+        System.out.println("3. 6:00 PM");
+
+        System.out.print("Select showtime: ");
+        int timeChoice = readInt();
+
+        String showtime;
+
+        switch (timeChoice) {
+
+            case 1:
+                showtime = "10:00 AM";
+                break;
+
+            case 2:
+                showtime = "2:00 PM";
+                break;
+
+            case 3:
+                showtime = "6:00 PM";
+                break;
+
+            default:
+                System.out.println("Invalid showtime.");
+                return;
+        }
+
+        String showKey = movie.getMovieId() + "_" + showtime;
+
+        System.out.println("\nAvailable seats for "
+                + movie.getMovieName() + " at " + showtime);
+
+        seatManager.displaySeats(showKey);
     }
 
     // Cancel booking
