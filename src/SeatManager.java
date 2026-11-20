@@ -28,7 +28,7 @@ public class SeatManager {
         }
     }
 
-    // Display seat layout
+    // Display seat layout and seat summary
     public void displaySeats(String showKey) {
 
         initializeSeats(showKey);
@@ -36,14 +36,29 @@ public class SeatManager {
         System.out.println("\n----- SEAT LAYOUT -----");
         System.out.println("[XX] = Booked Seat");
 
+        int bookedCount = 0;
+        int availableCount = 0;
+
         for (Seat seat : showSeats.get(showKey).values()) {
 
             seat.displaySeat();
+
+            if (seat.isBooked()) {
+                bookedCount++;
+            } else {
+                availableCount++;
+            }
 
             if (seat.getSeatId().endsWith("S5")) {
                 System.out.println();
             }
         }
+
+        System.out.println("\n----- SEAT SUMMARY -----");
+        System.out.println("Total Seats: "
+                + (bookedCount + availableCount));
+        System.out.println("Available Seats: " + availableCount);
+        System.out.println("Booked Seats: " + bookedCount);
     }
 
     // Validate selected seats
