@@ -52,7 +52,7 @@ public class BookingManager {
         return booking;
     }
 
-    // View complete booking history
+    // View booking history from newest to oldest
     public void viewBookings() {
 
         if (bookings.isEmpty()) {
@@ -61,8 +61,11 @@ public class BookingManager {
         }
 
         System.out.println("\n===== BOOKING HISTORY =====");
+        System.out.println("Bookings displayed from newest to oldest.");
 
-        for (Booking booking : bookings) {
+        for (int i = bookings.size() - 1; i >= 0; i--) {
+
+            Booking booking = bookings.get(i);
             booking.displayBooking();
         }
     }
@@ -106,5 +109,30 @@ public class BookingManager {
         }
 
         System.out.println("Booking ID not found or already cancelled.");
+    }
+
+    // Display booking history summary and revenue
+    public void displayBookingSummary() {
+
+        int totalBookings = bookings.size();
+        int confirmedBookings = 0;
+        int cancelledBookings = 0;
+        double totalRevenue = 0;
+
+        for (Booking booking : bookings) {
+
+            if (booking.isCancelled()) {
+                cancelledBookings++;
+            } else {
+                confirmedBookings++;
+                totalRevenue += booking.getTotalAmount();
+            }
+        }
+
+        System.out.println("\n===== BOOKING SUMMARY =====");
+        System.out.println("Total Bookings: " + totalBookings);
+        System.out.println("Confirmed Bookings: " + confirmedBookings);
+        System.out.println("Cancelled Bookings: " + cancelledBookings);
+        System.out.printf("Total Revenue: Rs. %.2f%n", totalRevenue);
     }
 }
