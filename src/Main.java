@@ -27,8 +27,9 @@ public class Main {
             System.out.println("2. Book Tickets");
             System.out.println("3. View Booking History");
             System.out.println("4. Cancel Booking");
-            System.out.println("5. Exit");
-            System.out.println("6. Search Booking by ID");
+            System.out.println("5. Search Booking by ID");
+            System.out.println("6. View Booking Summary");
+            System.out.println("7. Exit");
             System.out.print("Enter your choice: ");
 
             choice = readInt();
@@ -52,18 +53,22 @@ public class Main {
                     break;
 
                 case 5:
-                    System.out.println("Thank you for using our system!");
+                    searchBooking();
                     break;
 
                 case 6:
-                    searchBooking();
+                    bookingManager.displayBookingSummary();
+                    break;
+
+                case 7:
+                    System.out.println("Thank you for using our system!");
                     break;
 
                 default:
                     System.out.println("Invalid choice. Please try again.");
             }
 
-        } while (choice != 5);
+        } while (choice != 7);
     }
 
     // Add sample movies
