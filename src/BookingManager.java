@@ -45,11 +45,39 @@ public class BookingManager {
 
         bookings.add(booking);
 
-        System.out.println("\nBooking successful!");
-        System.out.println("Your Booking ID: " + booking.getBookingId());
-        System.out.println("Total Amount: Rs. " + totalAmount);
+        // Display booking confirmation receipt
+        displayBookingReceipt(booking, customer, movie, showtime, seats);
 
         return booking;
+    }
+
+    // Display detailed booking confirmation receipt
+    private void displayBookingReceipt(Booking booking,
+                                       Customer customer,
+                                       Movie movie,
+                                       String showtime,
+                                       List<String> seats) {
+
+        System.out.println("\n==================================");
+        System.out.println("       BOOKING CONFIRMATION");
+        System.out.println("==================================");
+
+        System.out.println("Booking ID    : " + booking.getBookingId());
+        System.out.println("Customer Name : " + customer.getName());
+        System.out.println("Movie Name    : " + movie.getMovieName());
+        System.out.println("Showtime      : " + showtime);
+        System.out.println("Selected Seats: " + String.join(", ", seats));
+        System.out.println("Number of Seats: " + seats.size());
+
+        System.out.printf("Ticket Price  : Rs. %.2f%n",
+                movie.getTicketPrice());
+
+        System.out.printf("Total Amount  : Rs. %.2f%n",
+                booking.getTotalAmount());
+
+        System.out.println("----------------------------------");
+        System.out.println("       BOOKING SUCCESSFUL!");
+        System.out.println("==================================");
     }
 
     // View booking history from newest to oldest
@@ -64,7 +92,6 @@ public class BookingManager {
         System.out.println("Bookings displayed from newest to oldest.");
 
         for (int i = bookings.size() - 1; i >= 0; i--) {
-
             Booking booking = bookings.get(i);
             booking.displayBooking();
         }
