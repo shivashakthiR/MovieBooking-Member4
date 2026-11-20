@@ -28,11 +28,13 @@ public class Main {
             System.out.println("3. View Booking History");
             System.out.println("4. Cancel Booking");
             System.out.println("5. Exit");
+            System.out.println("6. Search Booking by ID");
             System.out.print("Enter your choice: ");
 
             choice = readInt();
 
             switch (choice) {
+
                 case 1:
                     viewMovies();
                     break;
@@ -53,6 +55,10 @@ public class Main {
                     System.out.println("Thank you for using our system!");
                     break;
 
+                case 6:
+                    searchBooking();
+                    break;
+
                 default:
                     System.out.println("Invalid choice. Please try again.");
             }
@@ -68,7 +74,7 @@ public class Main {
         movies.add(new Movie(103, "Interstellar", "Drama", 169, 220));
     }
 
-    // Display all movies
+    // Display available movies
     private static void viewMovies() {
 
         System.out.println("\n----- AVAILABLE MOVIES -----");
@@ -105,6 +111,7 @@ public class Main {
         String showtime;
 
         switch (timeChoice) {
+
             case 1:
                 showtime = "10:00 AM";
                 break;
@@ -124,7 +131,6 @@ public class Main {
 
         String showKey = movie.getMovieId() + "_" + showtime;
 
-        // Display available seats
         seatManager.displaySeats(showKey);
 
         System.out.println("\nEnter seat IDs separated by commas.");
@@ -146,7 +152,6 @@ public class Main {
             return;
         }
 
-        // Customer details
         System.out.print("Enter customer name: ");
         String name = sc.nextLine().trim();
 
@@ -169,7 +174,6 @@ public class Main {
                 phone
         );
 
-        // Create booking
         bookingManager.createBooking(
                 customer,
                 movie,
@@ -178,7 +182,7 @@ public class Main {
         );
     }
 
-    // Cancel an existing booking
+    // Cancel booking
     private static void cancelBooking() {
 
         System.out.print("\nEnter Booking ID to cancel: ");
@@ -191,6 +195,21 @@ public class Main {
         }
 
         bookingManager.cancelBooking(bookingId);
+    }
+
+    // Search booking by ID
+    private static void searchBooking() {
+
+        System.out.print("\nEnter Booking ID to search: ");
+
+        int bookingId = readInt();
+
+        if (bookingId <= 0) {
+            System.out.println("Invalid booking ID.");
+            return;
+        }
+
+        bookingManager.searchBooking(bookingId);
     }
 
     // Read integer input safely
